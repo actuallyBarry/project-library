@@ -1,0 +1,129 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100vw;
+    background-color: hsl(78, 100%, 94%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* =========================================================== */
+header {
+    height: 8vh;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 2px 3px #ccc;
+    display: flex;
+    align-items: center;
+}
+
+/* =========================================================== */
+.form-container {
+    height: 12vh;
+    width: min(80vw, 950px);
+    margin-top: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+#add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    transition: transform 1s ease, opacity 1s ease;
+}
+#add:hover {
+    background-color: hsla(78, 40%, 70%, 0.4);
+    border: 4px solid hsl(78, 20%, 60%);
+    border-radius: 10px;
+}
+.init-inactive {
+    transform: scale(0);
+    opacity: 0;
+}
+
+form {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(170px, 2fr)) minmax(80px, 1fr);
+    column-gap: 1.5vw;
+    row-gap: 10px;
+}
+
+input, select {
+    height: 2.2rem;
+    font-size: 1.2rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    outline: 0;
+    padding: 0 7px;
+
+    transform: scaleX(0);
+    transform-origin: 0% 50%;
+    transition: transform 1s ease;
+}
+input:focus, select:focus {
+    border: 1px solid hsl(78, 100%, 30%);
+}
+button {
+    width: 8rem;
+    height: 2.2rem;
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    background-color: hsl(78, 100%, 30%);
+
+    transform: scaleX(0);
+    transform-origin: 0% 50%;
+    transition: transform 1s ease;
+}
+.form-active {
+    transform: scaleX(1);
+    transform-origin: 0% 50%;
+}
+
+/* =========================================================== */
+table {
+    width: min(80vw, 950px);
+    border-collapse: collapse;
+    letter-spacing: 1px;
+}
+th, td {
+    text-align: start;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+.status {
+    background-color: #fff;
+}
+.remove {
+    color: #fff;
+    background-color: rgb(255, 37, 37);
+}
+
+/* =========================================================== */
+@media (max-width: 600px) {
+    .form-container {
+        height: auto;
+        padding: 1rem 0;
+    }
+    form {
+        grid-template-columns: 1fr;
+        row-gap: 5px;
+    }
+}
