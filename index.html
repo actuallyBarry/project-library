@@ -17,10 +17,9 @@
         <form>
             <input type="text" id="title" placeholder="Book Title" required>
             <input type="text" id="author" placeholder="Author" required>
-            <!-- <input type="number" id="pages" placeholder="pages" min=1> -->
             <select>
-                <option value=''>Not read</option>
-                <option value=1>Read</option>
+                <option value='not read'>Not read</option>
+                <option value='read'>Read</option>
             </select>
             <button type="button">Add</button>
         </form>
@@ -31,7 +30,6 @@
         <thead>
             <th scope="col">Name</th>
             <th scope="col">Author</th>
-            <!-- <th scope="col">Pages</th> -->
             <th scope="col">Status</th>
             <th scope="col"></th>
         </thead>

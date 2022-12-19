@@ -1,46 +1,27 @@
-let myLibrary = [{title: 'Harry Potter', author: 'J.K. Rowling', pages: 480, isRead: 'not read'}, {title: 'Chemist', author: 'Koala Poilo', pages: 262, isRead: 'read'}];
-
-/* =================== DISPLAY BOOKS OFF THE START ==================== */
-window.addEventListener('DOMContentLoaded', () => displayBook());
+let myLibrary = [{title: 'Harry Potter', author: 'J.K. Rowling', pages: 480, status: 'not read'}, {title: 'Chemist', author: 'Koala Poilo', pages: 262, status: 'read'}];
 
 /* ========================== DISPLAY BOOKS =========================== */
 const table = document.querySelector('tbody');
 
 function displayBook() {
 myLibrary.forEach((book) => {
-    let tRow = document.createElement('tr');
-    let tD1 = document.createElement('td');
-    let tD2 = document.createElement('td');
-    let tD3 = document.createElement('td');
-    let tD4 = document.createElement('td');
-    let tD5 = document.createElement('td');
+    let htmlRow = `<tr><td>${book.title}</td><td>${book.author}</td><td><div class='status'>${book.status}</div></td><td><div class='remove'>Remove</div></td></tr>`;
 
-    tD1.innerText = book.title;
-    tD2.innerText = book.author;
-    // tD3.innerText = book.pages;
-    tD4.innerHTML = `<div class='status'>${book.isRead}</div>`;
-    tD5.innerHTML = "<div class='remove'>Remove</div>";
-
-    tRow.appendChild(tD1);
-    tRow.appendChild(tD2);
-    // tRow.appendChild(tD3);
-    tRow.appendChild(tD4);
-    tRow.appendChild(tD5);
-    table.appendChild(tRow);
+    table.insertAdjacentHTML("beforeend", htmlRow);
     })
 }
+
+displayBook();
 
 /* ======================= CONSTRUCTOR FUNCTION ======================= */
 const titleIn = document.getElementById('title');
 const authorIn = document.getElementById('author');
-// const pagesIn = document.getElementById('pages');
 const selectIn = document.querySelector('select');
 
 function Book() {
     this.title = titleIn.value;
     this.author = authorIn.value;
-    // this.pages = pagesIn.value;
-    this.isRead = Boolean(selectIn.value) ? 'read' : 'not read';
+    this.status = selectIn.value;
 }
 
 /* ====================== CLICK TO DISPLAY BOOK ======================= */
@@ -58,34 +39,25 @@ subBtn.addEventListener('click', () => {
     } else {alert("please fill all the fields!")}
 });
 
-/* =================== REMOVE BOOK FROM ARRAY & DOM =================== */
+/* ============= REMOVE BOOK / TOGGLE STATUS (ARRAY & DOM) ============ */
 table.addEventListener('click', (e) => {
-    if (e.target.getAttribute('class') === 'remove') {
-        let row = e.target.parentElement.parentElement;
-        let rowTitle = row.firstChild.textContent;
-        const found = myLibrary.find(book => book.title === rowTitle);
+    const clickedRow = e.target.parentElement.parentElement;
+    const rowTitle = clickedRow.firstChild.textContent;
+    const found = myLibrary.find(book => book.title === rowTitle);
 
-        if (confirm(`Are you sure you want to remove ${rowTitle}?`)) {
-            table.removeChild(row);
+    if (e.target.getAttribute('class') === 'remove') {
+        if (confirm(`Are you sure you want to remove "${rowTitle}" ?`)) {
+            table.removeChild(clickedRow);
             for (let i = 0; i < myLibrary.length; i++) {
                 (myLibrary[i] === found) && myLibrary.splice(i, 1);
             }
         }
     }
-});
-
-/* =================== TOGGLE STATUS ON ARRAY & DOM =================== */
-table.addEventListener('click', (e) => {
     if (e.target.getAttribute('class') === 'status') {
-        let rowTitle = e.target.parentElement.parentElement.firstChild.textContent;
-        const found = myLibrary.find(book => book.title === rowTitle);
-        
         e.target.textContent = (e.target.textContent === "read") ? "not read" : "read";
-        found.isRead = (found.isRead === "read") ? "not read" : "read";
-
+        found.status = (found.status === "read") ? "not read" : "read";
     }
 });
-
 
 /* ======================== CHANGE FORM STYLE ========================= */
 const initBtn = document.getElementById('add');
