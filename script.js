@@ -18,10 +18,12 @@ const titleIn = document.getElementById('title');
 const authorIn = document.getElementById('author');
 const selectIn = document.querySelector('select');
 
-function Book() {
-    this.title = titleIn.value;
-    this.author = authorIn.value;
-    this.status = selectIn.value;
+class Book {
+    constructor() {
+        this.title = titleIn.value;
+        this.author = authorIn.value;
+        this.status = selectIn.value;
+    }
 }
 
 /* ====================== CLICK TO DISPLAY BOOK ======================= */
