@@ -29,17 +29,32 @@ class Book {
 /* ====================== CLICK TO DISPLAY BOOK ======================= */
 const subBtn = document.querySelector('button');
 
-subBtn.addEventListener('click', () => {
-    if (titleIn.value !== '' && authorIn.value !== '') {
-        if (!myLibrary.some(book => book.title === titleIn.value)) {
-            myLibrary.push(new Book());
-            table.innerHTML = null;
-            displayBook();
-            titleIn.value = null;
-            authorIn.value = null;
-        } else {alert("a book with this title already exists!")}
-    } else {alert("please fill all the fields!")}
-});
+subBtn.addEventListener('click', (e) => {
+    if (titleIn.value.trim() == '') {
+        titleIn.setCustomValidity("Please put in a title!");
+    } else if (authorIn.value.trim() == '') {
+        authorIn.setCustomValidity("Please put in a name!");
+    } else if (myLibrary.some(book => book.title == titleIn.value.trim())) {
+        titleIn.setCustomValidity("Title already exists! Please enter a different one.");
+    } else {
+        myLibrary.push(new Book());
+        table.innerHTML = null;
+        displayBook();
+        titleIn.value = null;
+        authorIn.value = null;
+        e.preventDefault();
+    }
+})
+titleIn.addEventListener('input', () => {
+    if (titleIn.value.trim() != '') {
+        titleIn.setCustomValidity("")
+    }
+})
+authorIn.addEventListener('input', () => {
+    if (authorIn.value.trim() != '') {
+        authorIn.setCustomValidity("")
+    }
+})
 
 /* ============= REMOVE BOOK / TOGGLE STATUS (ARRAY & DOM) ============ */
 table.addEventListener('click', (e) => {
